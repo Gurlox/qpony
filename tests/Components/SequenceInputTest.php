@@ -26,10 +26,17 @@ class SequenceInputTest extends TestCase
         self::$sequenceInput->setInputs('2\n999999');
     }
 
-    public function testSetAndGetInputs()
+    public function testSetAndGetInputsAsArray()
     {
         self::$sequenceInput->setInputs('2\n3\n4\n43');
-        $this->assertEquals([2, 3, 4, 43], self::$sequenceInput->getInputs());
+        $this->assertEquals([2, 3, 4, 43], self::$sequenceInput->getInputsAsArray());
+    }
+
+    public function testSetAndGetInputs()
+    {
+        $value = '2\n3\n4\n43';
+        self::$sequenceInput->setInputs($value);
+        $this->assertEquals($value, self::$sequenceInput->getInputs());
     }
 
     public function testHighestValuesOutput()

@@ -19,7 +19,12 @@ class SequenceInput extends Sequence
         return $highestValues;
     }
 
-    public function getInputs(): array
+    public function getInputs(): string
+    {
+        return implode('\n', $this->inputs);
+    }
+
+    public function getInputsAsArray(): array
     {
         return $this->inputs;
     }
