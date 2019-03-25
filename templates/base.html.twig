@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Qpony</title>
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Qpony</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <main class="container-fluid">
+        <section class="row form">
+            {{ form_start(form) }}
+                <div class="form-group row">
+                    <label for="exampleFormControlTextarea1" class="col-2 col-form-label">
+                        {{ form_label(form.inputs) }}
+                    </label>
+                    <div class="col-8">
+                        {{ form_widget(form.inputs) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </section>
+        <section class="row output">
+            {% if sequenceInput.highestValuesOutput is not empty %}
+                <h3 class="row">Output</h3>
+                <ul>
+                {% for value in sequenceInput.highestValuesOutput %}
+                    <li>{{ value.input }} => {{ value.output }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </section>
+    </main>
+</body>
 </html>

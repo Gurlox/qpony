@@ -4,17 +4,18 @@ namespace App\Tests\Form;
 
 use App\Components\SequenceInput;
 use App\Form\SequenceInputType;
+use App\Test\EOL;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class SequenceInputTypeTest extends TypeTestCase
 {
     public function testSubmitValidData()
     {
-        $formData = ['inputs' => '5\n10'];
+        $formData = ['inputs' => EOL::stringWithEOL('5 10')];
 
         $sequenceInput = new SequenceInput();
         $form = $this->factory->create(SequenceInputType::class, $sequenceInput);
-        $rawSequenceInput = (new SequenceInput())->setInputs('5\n10');
+        $rawSequenceInput = (new SequenceInput())->setInputs(EOL::stringWithEOL('5 10'));
 
         $form->submit($formData);
         $this->assertTrue($form->isSynchronized());

@@ -3,6 +3,7 @@
 namespace App\Tests\Util;
 
 use App\Components\SequenceInput;
+use App\Test\EOL;
 use PHPUnit\Framework\TestCase;
 
 class SequenceInputTest extends TestCase
@@ -19,29 +20,29 @@ class SequenceInputTest extends TestCase
     public function testSetInputsExceptions()
     {
         $this->expectException(\InvalidArgumentException::class);
-        self::$sequenceInput->setInputs('2\n3\n4\n4uhuih');
+        self::$sequenceInput->setInputs(EOL::stringWithEOL('2 3 4 4uhuih'));
         $this->expectException(\InvalidArgumentException::class);
-        self::$sequenceInput->setInputs('-1\n2');
+        self::$sequenceInput->setInputs(EOL::stringWithEOL('-1 2'));
         $this->expectException(\InvalidArgumentException::class);
-        self::$sequenceInput->setInputs('2\n999999');
+        self::$sequenceInput->setInputs(EOL::stringWithEOL('2 999999'));
     }
 
     public function testSetAndGetInputsAsArray()
     {
-        self::$sequenceInput->setInputs('2\n3\n4\n43');
+        self::$sequenceInput->setInputs(EOL::stringWithEOL('2 3 4 43'));
         $this->assertEquals([2, 3, 4, 43], self::$sequenceInput->getInputsAsArray());
     }
 
     public function testSetAndGetInputs()
     {
-        $value = '2\n3\n4\n43';
+        $value = EOL::stringWithEOL('2 3 4 43');
         self::$sequenceInput->setInputs($value);
         $this->assertEquals($value, self::$sequenceInput->getInputs());
     }
 
     public function testHighestValuesOutput()
     {
-        self::$sequenceInput->setInputs('5\n10');
+        self::$sequenceInput->setInputs(EOL::stringWithEOL('5 10'));
         $this->assertEquals(
             [
                 ['input' => 5, 'output' => 3],

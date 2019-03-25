@@ -21,7 +21,7 @@ class SequenceInput extends Sequence
 
     public function getInputs(): string
     {
-        return implode('\n', $this->inputs);
+        return implode(PHP_EOL, $this->inputs);
     }
 
     public function getInputsAsArray(): array
@@ -31,7 +31,8 @@ class SequenceInput extends Sequence
 
     public function setInputs(string $inputs): self
     {
-        $inputs = explode('\n', $inputs);
+        $inputs = preg_replace("/\\r/", "", $inputs);
+        $inputs = explode(PHP_EOL, $inputs);
         foreach ($inputs as &$input) {
             if (!is_numeric($input)) throw new \InvalidArgumentException('All values should be numeric');
             $input = (int)$input;

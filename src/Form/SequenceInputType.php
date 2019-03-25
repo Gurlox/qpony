@@ -14,7 +14,9 @@ class SequenceInputType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('inputs', TextareaType::class)
+            ->add('inputs', TextareaType::class, [
+                'attr' => ['class' => 'form-control'],
+            ])
             ->add('submit', SubmitType::class)
         ;
     }

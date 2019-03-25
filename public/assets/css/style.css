@@ -1,0 +1,38 @@
+html {
+    font-size: 1.4em;
+    font-family: sans-serif;
+    background: #f7f7f7;
+}
+
+body {
+    background: #efefef;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 200vh;
+}
+
+.form, .output {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    background: lightblue;
+}
+
+.output ul {
+    width: 100%;
+}
+
+.output ul li {
+    list-style-type: none;
+}
+
+.output ul li:nth-child(2n + 1) {
+    background: lightcoral;
+}
