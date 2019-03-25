@@ -17,20 +17,35 @@ class SequenceInputTest extends TestCase
         self::$sequenceInput = new SequenceInput();
     }
 
+    public function invokeMethod(string $methodName, array $parameters = [])
+    {
+        $reflection = new \ReflectionClass(get_class(self::$sequenceInput));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+
+        return $method->invokeArgs(self::$sequenceInput, $parameters);
+    }
+
     public function testSetInputsExceptions()
     {
         $this->expectException(\InvalidArgumentException::class);
-        self::$sequenceInput->setInputs(EOL::stringWithEOL('2 3 4 4uhuih'));
+        $this->invokeMethod("validateInput", [[2, 3, 4, '4huhi']]);
+
         $this->expectException(\InvalidArgumentException::class);
-        self::$sequenceInput->setInputs(EOL::stringWithEOL('-1 2'));
+        $this->invokeMethod("validateInput", [[-1, 2]]);
+
         $this->expectException(\InvalidArgumentException::class);
-        self::$sequenceInput->setInputs(EOL::stringWithEOL('2 999999'));
+        $this->invokeMethod("validateInput", [[2, 999999]]);
     }
 
     public function testSetAndGetInputsAsArray()
     {
-        self::$sequenceInput->setInputs(EOL::stringWithEOL('2 3 4 43'));
-        $this->assertEquals([2, 3, 4, 43], self::$sequenceInput->getInputsAsArray());
+        $result = [2, 3, 4, 43];
+        self::$sequenceInput->setInputs(EOL::stringWithEOL(implode(' ', $result)));
+        $this->assertEquals($result, self::$sequenceInput->getInputsAsArray());
+
+        self::$sequenceInput->setInputsAsArray($result);
+        $this->assertEquals($result, self::$sequenceInput->getInputsAsArray());
     }
 
     public function testSetAndGetInputs()

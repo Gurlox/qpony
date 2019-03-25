@@ -33,6 +33,20 @@ class SequenceInput extends Sequence
     {
         $inputs = preg_replace("/\\r/", "", $inputs);
         $inputs = explode(PHP_EOL, $inputs);
+        $this->validateInput($inputs);
+
+        return $this;
+    }
+
+    public function setInputsAsArray(array $inputs): self
+    {
+        $this->validateInput($inputs);
+
+        return $this;
+    }
+
+    private function validateInput(array $inputs): void
+    {
         foreach ($inputs as &$input) {
             if (!is_numeric($input)) throw new \InvalidArgumentException('All values should be numeric');
             $input = (int)$input;
@@ -40,7 +54,5 @@ class SequenceInput extends Sequence
             if ($input > 99999) throw new \InvalidArgumentException('Value cannot be more than 99 999');
         }
         $this->inputs = $inputs;
-
-        return $this;
     }
 }
