@@ -19,8 +19,6 @@ class SequenceController extends AbstractController
         $sequenceInput = new SequenceInput();
         $form = $this->createForm(SequenceInputType::class, $sequenceInput)->handleRequest($request);
 
-        dump($sequenceInput);
-
         return $this->render('base.html.twig', [
             'form' => $form->createView(),
             'sequenceInput' => $sequenceInput
